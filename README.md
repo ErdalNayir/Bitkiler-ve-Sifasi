@@ -11,6 +11,6 @@ I have been creating react website with express.js about herbs.
   * Can Login or sign up to the website.
   
 ### Progress
-Currently I have created some basic Rest api for back-end. I am creating front-end with react and tailwind.css now.  
+Currently I have created some basic Rest api with express.js and mongodb for back-end. I am creating front-end with react and tailwind.css now.  
   
-#### I create website for learning express.js, node.js, tailwind.css and improve my overall ability of using javascript technologies and of course for my hobby :).
+#### I create website for learning express.js, node.js, tailwind.css, mongodb and improve my overall ability of using javascript technologies and of course for my hobby :).

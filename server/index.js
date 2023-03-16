@@ -1,10 +1,11 @@
 //IMPORT REQUIRED PACKAGES
-var express = require("Express");
-var bodyParser = require("body-parser");
-var cookieParser = require("cookie-parser");
-var mongoose = require("mongoose");
+const express = require("Express");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const mongoose = require("mongoose");
+const cloudinary = require("cloudinary").v2;
 
-var app = express();
+const app = express();
 
 //config environment
 require("dotenv").config();
@@ -16,7 +17,6 @@ mongoose.connect(
   `mongodb+srv://erdalnyr:${process.env.MONGODB_PASSWORD}@cluster0.myrrbxu.mongodb.net/?retryWrites=true&w=majority`,
   { dbName: process.env.MONGODB_DBNAME }
 );
-
 const database = mongoose.connection;
 
 database.on("error", (error) => {
@@ -27,18 +27,27 @@ database.once("connected", () => {
   console.log("Database Connected");
 });
 
+//Cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 //MIDDLEWARES
-var middlewareGet = require("./middlewares/middlewaresGet.js");
+const middlewareGet = require("./middlewares/middlewaresGet.js");
+//const middlewarePost = require("./middlewares/middlewaresPost.js");
 
 //ROUTES
-var postRouters = require("./routes/postRoutes.js");
-var getRouters = require("./routes/getRoutes.js");
-var deleteRouters = require("./routes/deleteRoutes.js");
-var patchRouters = require("./routes/putRoutes.js");
+const postRouters = require("./routes/postRoutes.js");
+const getRouters = require("./routes/getRoutes.js");
+const deleteRouters = require("./routes/deleteRoutes.js");
+const patchRouters = require("./routes/putRoutes.js");
 //INCLUDE ALL ROUTES AND MIDDLEWARES
 
 //include middlewares
 app.use("/get", middlewareGet);
+//app.use("/post", middlewarePost);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
